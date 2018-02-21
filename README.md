@@ -26,7 +26,8 @@ $ sudo ./install.sh
 			  ^^^^^^^^^^^^^^^^ this value different from gateways
 			  
 5) Configure LoRa Gateway Bridge
-$ sudo nano /etc/default/lora-gateway-bridge
+$ sudo nano /etc/lora-gateway-bridge/lora-gateway-bridge.toml
+$ sudo systemctl restart lora-gateway-bridge
 
 6) Configure email server for notification when board reboot
 $ sudo nano /etc/ssmtp/ssmtp.conf
@@ -72,4 +73,5 @@ root:mqictsolutions@gmail.com:smtp.gmail.com:587
 -----------------------------------------------------------------------------
 
 # Test send email
-$ echo “Test text” | mail -s “Test Mail” targetperson@example.com
+$ echo "Test text" | mail -s "Test Mail" targetperson@example.com
+

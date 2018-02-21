@@ -37,7 +37,7 @@ cp internet_watchdog.sh /root/bin/
 chown root:root /root/bin/internet_watchdog.sh
 chmod 700 /root/bin/internet_watchdog.sh
 
-cp lora-gateway-bridge ~/
+cp lora-gateway-bridge.toml ~/
 
 # Request gateway configuration data
 # There are two ways to do it, manually specify everything
@@ -203,7 +203,8 @@ echo "deb https://repos.loraserver.io/${DISTRIB_ID,,} ${DISTRIB_CODENAME} testin
 apt-get update
 apt-get install lora-gateway-bridge
 
-cp ~/lora-gateway-bridge /etc/default/
+#cp ~/lora-gateway-bridge /etc/default/
+cp ~/lora-gateway-bridge.toml /etc/lora-gateway-bridge/
 sudo systemctl start lora-gateway-bridge
 
 echo "The system will reboot in 5 seconds..."
