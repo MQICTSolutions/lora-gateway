@@ -17,7 +17,7 @@ bash /home/pi/SetupUsb3gModem start
 # Check if reboot occur
 if [ -f /home/pi/rebootstate ]; then
 	HOSTNAME=`hostname`
-	echo `tail -n 100 /var/log/syslog` > /home/pi/syslog
+	echo `tail -n 1000 /var/log/syslog` > /home/pi/syslog
 	echo "System just rebooted" | mail -s "[$HOSTNAME][Notification] Gateway just reboot " -A /home/pi/syslog nguyen.thanh.tuan@mqsolutions.vn
 fi
 

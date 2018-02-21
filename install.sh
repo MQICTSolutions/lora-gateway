@@ -28,7 +28,7 @@ if [[ $OLD_HEAD != $NEW_HEAD ]]; then
 fi
 
 echo "Install necessary packages"
-apt-get install libusb-1.0-0-dev ppp usb-modeswitch wvdial dirmngr ssmtp mailutils
+apt-get install libusb-1.0-0-dev ppp usb-modeswitch wvdial dirmngr ssmtp mailutils weavedconnectd
 ln -s -f /usr/include/libusb-1.0/libusb.h /usr/include/libusb.h
 cp SetupUsb3gModem /home/pi
 cp rc.local /etc/
