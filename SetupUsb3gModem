@@ -1,0 +1,50 @@
+#!/bin/bash
+
+mode=$1 # start, stop
+apn="Viettel"
+device='ZTE\|Huawei' # ZTE, Huawei, TODO: add more device
+down_count=0
+dev_check=""
+
+MAX_TRY_TIME=3
+MAX_DELAY_TIME=3
+SLEEP_SECS=30
+
+if [ "$mode" != "start" -a "$mode" != "stop" ]
+then
+	echo "usage: ./$0 start|stop"
+	exit
+fi
+
+exec 1> >(logger -s -t $(basename $0)) 2>&1
+
+echo "[USBMODEM] Begin $mode process"
+
+
+while [ "$dev_check"="" ]
+do
+	dev_check=`lsusb | grep -i $device`
+	
+	if [ "$dev_check" != "" ] || (( $down_count > $MAX_TRY_TIME )); then
+		break
+	fi
+	echo "[USBMODEM] Not found device, wait and re-check after ${SLEEP_SECS} second"
+	sleep ${SLEEP_SECS};
+	down_count="$down_count+1"
+done
+
+if (( $down_count > $MAX_TRY_TIME )); then
+	down_count=0
+	exit 0
+fi
+
+dev_id=$(echo $dev_check| cut -d' ' -f 6)
+echo "USBModem: $dev_check"
+echo "DeviceID: $dev_id"
+
+#For Viettel
+if [ "$apn"="Viettel" ]; then
+	sudo sakis3g $mode APN="e-connect" APN_USER="foo" APN_PASS="foo" USBMODEM="$dev_id"
+fi
+
+echo "[USBMODEM] End $mode process"

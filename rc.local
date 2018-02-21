@@ -1,0 +1,29 @@
+#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will "exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+# By default this script does nothing.
+
+# Start USB 3G
+bash /home/pi/SetupUsb3gModem start
+
+# Check if reboot occur
+if [ -f /home/pi/rebootstate ]; then
+	HOSTNAME=`hostname`
+	echo `tail -n 100 /var/log/syslog` > /home/pi/syslog
+	echo "System just rebooted" | mail -s "[$HOSTNAME][Notification] Gateway just reboot " -A /home/pi/syslog nguyen.thanh.tuan@mqsolutions.vn
+fi
+
+
+# start internet_watchdog to reboot if connection is unavailable
+bash /root/bin/internet_watchdog.sh &
+
+exit 0
+

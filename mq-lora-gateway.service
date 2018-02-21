@@ -1,0 +1,12 @@
+[Unit]
+Description=MQ LoRa Gateway
+
+[Service]
+WorkingDirectory=/opt/mq-lora-gateway/bin/
+ExecStart=/opt/mq-lora-gateway/bin/start.sh
+SyslogIdentifier=mq-lora-gateway
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
