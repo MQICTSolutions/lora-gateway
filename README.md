@@ -24,12 +24,14 @@ $ sudo ./install.sh
 
 **Note down EUI B827EBFFFED0230A in console log
 			  ^^^^^^^^^^^^^^^^ this value different from gateways
+
+5) Add gateway JSON configuration file (TBD)
 			  
-5) Configure LoRa Gateway Bridge
+6) Configure LoRa Gateway Bridge
 $ sudo nano /etc/lora-gateway-bridge/lora-gateway-bridge.toml
 $ sudo systemctl restart lora-gateway-bridge
 
-6) Configure email server for notification when board reboot
+7) Configure email server for notification when board reboot
 $ sudo nano /etc/ssmtp/ssmtp.conf
 
 -----------------------------------------------------------------------------

@@ -18,7 +18,10 @@ bash /home/pi/SetupUsb3gModem start
 if [ -f /home/pi/rebootstate ]; then
 	HOSTNAME=`hostname`
 	echo `tail -n 1000 /var/log/syslog` > /home/pi/syslog
-	echo "System just rebooted" | mail -s "[$HOSTNAME][Notification] Gateway just reboot " -A /home/pi/syslog nguyen.thanh.tuan@mqsolutions.vn
+	GATEWAY_EUI_NIC=$(ip -oneline link show up 2>&1 | grep -v LOOPBACK | sed -E 's/^[0-9]+: ([0-9a-z]+): .*/\1/' | head -1)
+	GATEWAY_EUI=$(cat /sys/class/net/$GATEWAY_EUI_NIC/address | awk -F\: '{print $1$2$3"FFFE"$4$5$6}')
+	GATEWAY_EUI=${GATEWAY_EUI^^} # toupper	
+	echo "$GATEWAY_EUI rebooted due to network system down" | mail -s "[$HOSTNAME][Warning] $GATEWAY_EUI network problem" -A /home/pi/syslog nguyen.thanh.tuan@mqsolutions.vn
 fi
 
 

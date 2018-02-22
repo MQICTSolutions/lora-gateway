@@ -8,7 +8,7 @@ if [ $UID != 0 ]; then
     exit 1
 fi
 
-VERSION="spi"
+VERSION="master"
 if [[ $1 != "" ]]; then VERSION=$1; fi
 
 echo "MQ LoRa Gateway installer"
