@@ -11,8 +11,10 @@
 #
 # By default this script does nothing.
 
+GW_PACKGAE_DIR="/opt/mq-lora-gateway"
+
 # Start USB 3G
-bash /home/pi/SetupUsb3gModem start
+bash $GW_PACKGAE_DIR/bin/SetupUsb3gModem start
 
 # Check if reboot occur
 if [ -f /home/pi/rebootstate ]; then
@@ -26,7 +28,7 @@ fi
 
 
 # start internet_watchdog to reboot if connection is unavailable
-bash /root/bin/internet_watchdog.sh &
+bash $GW_PACKGAE_DIR/internet_watchdog.sh &
 
 exit 0
 

@@ -30,14 +30,6 @@ fi
 echo "Install necessary packages"
 apt-get install libusb-1.0-0-dev ppp usb-modeswitch wvdial dirmngr ssmtp mailutils weavedconnectd
 ln -s -f /usr/include/libusb-1.0/libusb.h /usr/include/libusb.h
-cp SetupUsb3gModem /home/pi
-cp rc.local /etc/
-mkdir -p /root/bin
-cp internet_watchdog.sh /root/bin/
-chown root:root /root/bin/internet_watchdog.sh
-chmod 700 /root/bin/internet_watchdog.sh
-
-cp lora-gateway-bridge.toml ~/
 
 # Request gateway configuration data
 # There are two ways to do it, manually specify everything
@@ -193,6 +185,9 @@ git clone https://github.com/Trixarian/sakis3g-source ~/sakis3g-source
 cd ~/sakis3g-source
 ./compile
 cp build/sakis3gz /usr/bin/sakis3g
+cp SetupUsb3gModem $INSTALL_DIR/bin/
+cp internet_watchdog.sh $INSTALL_DIR/bin/
+cp rc.local /etc/
 
 echo "Install LoRa Gateway Bridge"
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1CE2AFD36DBCCA00
@@ -203,8 +198,9 @@ echo "deb https://repos.loraserver.io/${DISTRIB_ID,,} ${DISTRIB_CODENAME} testin
 apt-get update
 apt-get install lora-gateway-bridge
 
-#cp ~/lora-gateway-bridge /etc/default/
-cp ~/lora-gateway-bridge.toml /etc/lora-gateway-bridge/
+if [ ! -d gateway-remote-config ]; then
+	cp $INSTALL_DIR/gateway-remote-config/lora-gateway-bridge.toml /etc/lora-gateway-bridge/
+fi
 sudo systemctl start lora-gateway-bridge
 
 echo "The system will reboot in 5 seconds..."

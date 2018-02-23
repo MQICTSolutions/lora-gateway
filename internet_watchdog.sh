@@ -1,5 +1,7 @@
 #!/bin/bash
 
+GW_PACKGAE_DIR="/opt/mq-lora-gateway"
+
 # function gets called to do any cleanup before rebooting
 restart_network()
 {
@@ -7,9 +9,8 @@ restart_network()
    logger -p0 "[RESTART NETWORKING]Internet connection is unreachable - restart networking"
    #/etc/init.d/networking restart   
    # stop & start USB 3G
-   cd /home/pi/
-   ./SetupUsb3gModem stop
-   ./SetupUsb3gModem start
+   bash $GW_PACKGAE_DIR/bin/SetupUsb3gModem stop
+   bash $GW_PACKGAE_DIR/bin/SetupUsb3gModem start
 }
 
 
