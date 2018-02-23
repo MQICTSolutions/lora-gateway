@@ -181,13 +181,14 @@ cp ./mq-lora-gateway.service /lib/systemd/system/
 systemctl enable mq-lora-gateway.service
 
 echo "Install USB3G support script"
+cp SetupUsb3gModem $INSTALL_DIR/bin/
+cp internet_watchdog.sh $INSTALL_DIR/bin/
+cp rc.local /etc/
+
 git clone https://github.com/Trixarian/sakis3g-source ~/sakis3g-source
 cd ~/sakis3g-source
 ./compile
 cp build/sakis3gz /usr/bin/sakis3g
-cp SetupUsb3gModem $INSTALL_DIR/bin/
-cp internet_watchdog.sh $INSTALL_DIR/bin/
-cp rc.local /etc/
 
 echo "Install LoRa Gateway Bridge"
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1CE2AFD36DBCCA00
@@ -202,6 +203,9 @@ if [ ! -d gateway-remote-config ]; then
 	cp $INSTALL_DIR/gateway-remote-config/lora-gateway-bridge.toml /etc/lora-gateway-bridge/
 fi
 sudo systemctl start lora-gateway-bridge
+
+#Workaround
+chmod +x $INSTALL_DIR/bin/*
 
 echo "The system will reboot in 5 seconds..."
 sleep 5
