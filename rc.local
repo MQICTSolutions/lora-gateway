@@ -28,7 +28,7 @@ fi
 
 
 # start internet_watchdog to reboot if connection is unavailable
-bash $GW_PACKGAE_DIR/internet_watchdog.sh &
+bash $GW_PACKGAE_DIR/bin/internet_watchdog.sh &
 
 exit 0
 
