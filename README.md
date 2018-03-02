@@ -11,7 +11,7 @@ sudo raspi-config
 		[5] -> [4]
 
 	Expand FileSystem
-		[7] -> [1]
+		[7] -> [1] 
 		
 4) Install gateway packages
 
@@ -20,6 +20,7 @@ sudo apt-get upgrade
 sudo apt-get install git
 git clone https://github.com/MQICTSolutions/lora-gateway
 cd lora-gateway
+chmod +x install.sh
 sudo ./install.sh
 
 **Note down EUI B827EBFFFED0230A in console log
