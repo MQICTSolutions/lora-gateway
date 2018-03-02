@@ -8,7 +8,7 @@ dev_check=""
 
 MAX_TRY_TIME=3
 MAX_DELAY_TIME=3
-SLEEP_SECS=30
+SLEEP_SECS=5
 
 if [ "$mode" != "start" -a "$mode" != "stop" ]
 then
